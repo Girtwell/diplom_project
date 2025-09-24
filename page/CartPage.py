@@ -1,9 +1,11 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
+@allure.epic("Корзина")
 class CartPage:
     """
     Этот класс представляет сущность "Корзина".
@@ -16,12 +18,14 @@ class CartPage:
         self.__url = "https://www.chitai-gorod.ru"
         self.__driver = driver
 
+    @allure.step("Открыть страницу корзины")
     def go_cart(self):
         """
         Открывает страницу корзины.
         """
         self.__driver.get(self.__url + "/cart")
 
+    @allure.step("Дождаться, что товар отобразился в корзине")
     def item_in_cart(self):
         (WebDriverWait(
             self.__driver, 10).until(
@@ -30,10 +34,12 @@ class CartPage:
         return self.__driver.find_element(
             By.CSS_SELECTOR, 'span.cart-page__title--append').text
 
+    @allure.step("Нажать кнопку 'Очистить корзину'")
     def clear_cart(self):
         self.__driver.find_element(
             By.CSS_SELECTOR, 'span.cart-page__clear-cart-title').click()
 
+    @allure.step("Дождаться сообщение 'Корзина очищена'")
     def message_clear_cart(self):
         (WebDriverWait(
             self.__driver, 10).until(

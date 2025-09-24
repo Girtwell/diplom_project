@@ -1,7 +1,10 @@
 allure*
+allure-files/
+allure-report/
+
 __pycache__
 .pytest_cache
-.vscode/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -386,6 +389,7 @@ poetry.toml
 pyrightconfig.json
 
 ### VisualStudioCode ###
+.vscode/
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
