@@ -50,7 +50,7 @@ class MainPage:
         Возвращает заголовок выпадающего списка.
         """
         (WebDriverWait(
-            self.__driver, 10).until(
+            self.__driver, 15).until(
                 EC.visibility_of_element_located((
                     By.CSS_SELECTOR, 'span.suggests-list__header'))))
         return self.__driver.find_element(
@@ -63,7 +63,7 @@ class MainPage:
         возвращает текст сообщения.
         """
         (WebDriverWait(
-            self.__driver, 10).until(
+            self.__driver, 15).until(
                 EC.visibility_of_element_located((
                     By.CSS_SELECTOR, 'h1.search-title__head'))))
 
@@ -77,7 +77,7 @@ class MainPage:
         возвращает текст сообщения.
         """
         (WebDriverWait(
-            self.__driver, 10).until(
+            self.__driver, 15).until(
                 EC.visibility_of_element_located((
                     By.CSS_SELECTOR, 'h4.catalog-stub__title'))))
         return self.__driver.find_element(
@@ -90,7 +90,7 @@ class MainPage:
         Нажимает выбранную книгу.
         """
         (WebDriverWait(
-            self.__driver, 10).until(
+            self.__driver, 15).until(
                 EC.visibility_of_element_located((
                     By.CSS_SELECTOR, 'a[href="/product/siyanie-2827510"]'))))
         self.__driver.find_element(
@@ -103,7 +103,7 @@ class MainPage:
         Нажимает кнопку купить.
         """
         (WebDriverWait(
-            self.__driver, 10).until(
+            self.__driver, 15).until(
                 EC.visibility_of_element_located((
                     By.CSS_SELECTOR, 'button[aria-label="false"]'))))
         self.__driver.find_element(

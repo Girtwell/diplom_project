@@ -1,14 +1,39 @@
+import allure
 import requests
+from urllib.parse import quote
 
 
+@allure.epic("Работа с API")
 class SearchApi:
-    base_url = "https://web-gate.chitai-gorod.ru/api/v2"
+    """
+    Этот класс представляет сущность "Хелперы по работе с API".
+    """
+    def __init__(self, base_url: str, token: str):
+        self.base_url = base_url
+        self.token = token
 
-    def search(self, title: str):
-        path = "{read_city}/search/facet-search?customerCityId=213&phrase={book}".format(read_city=self.base_url, book=title)
+    @allure.step("Поисковая строка")
+    def search(self, title: str) -> dict:
+        """
+        Отправляет запрос для поисковой строки и возвращает результат
+        """
+        encoded_title = quote(title)
+        path = f"{self.base_url}/search/facet-search?customerCityId=213&phrase={encoded_title}"
 
-        cookie = {
-            "access-token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTg5ODU1OTMsImlhdCI6MTc1ODgxNzU5MywiaXNzIjoiL2FwaS92MS9hdXRoL2Fub255bW91cyIsInN1YiI6ImUxODgxMzE3ZjE5ZTNhZjU1OWU4N2Q1YzFjMjFjNWEyNmI4NTQxOTBlMzNjZTQyMzc2YjBhODc5YTFkNGIxMjYiLCJ0eXBlIjoxMH0.tUk5c1JHnZdlpFEy6zH_v0_0EGCP5CDrd1c1VH52D-g"
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Referer': 'https://www.chitai-gorod.ru/',
+            'Origin': 'https://www.chitai-gorod.ru',
+            'Authorization': self.token
         }
-
-        requests.get(path, cookies=cookie)
+        with allure.step("Отправить GET запрос с {title}"):
+            resp = requests.get(path, headers=headers)
+        with allure.step("Получить ответ"):
+            if resp.status_code == 200:
+                return resp.json()
+            else:
+                print(f"Ошибка запроса: {resp.status_code}")
+                print(f"Текст ответа: {resp.text}")
+                return {"error": resp.status_code, "message": resp.text}
