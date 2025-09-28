@@ -7,8 +7,8 @@ from api.SearchApi import SearchApi
     """Тест проверяет, что результат по запросу
     не отсутсвует и не возвращает ошибку в ответе.
     В теле ответа получим словарь""")
-def test_search_in_cyrillic(api_client: SearchApi):
-    title = "Сияние"
+def test_search_in_cyrillic(api_client: SearchApi, test_data: dict):
+    title = test_data.get("title_cyr")
     result = api_client.search(title)
 
     assert result is not None, "Результат не должен быть None"
@@ -23,8 +23,8 @@ def test_search_in_cyrillic(api_client: SearchApi):
     """Тест проверяет, что результат по запросу
     не отсутсвует и не возвращает ошибку в ответе.
     В теле ответа получим словарь""")
-def test_search_in_latin(api_client: SearchApi):
-    title = "The little prince"
+def test_search_in_latin(api_client: SearchApi, test_data: dict):
+    title = test_data.get("title_lat")
     result = api_client.search(title)
 
     assert result is not None, "Результат не должен быть None"
@@ -38,8 +38,8 @@ def test_search_in_latin(api_client: SearchApi):
     """Тест проверяет, что результат по запросу
     не отсутсвует и не возвращает ошибку в ответе.
     В теле ответа получим словарь""")
-def test_search_with_numbers(api_client: SearchApi):
-    title = "1984"
+def test_search_with_numbers(api_client: SearchApi, test_data: dict):
+    title = test_data.get("title_num")
     result = api_client.search(title)
 
     assert result is not None, "Результат не должен быть None"
@@ -57,8 +57,8 @@ def test_search_with_numbers(api_client: SearchApi):
     Каждый фильтр должен содержать поле 'id'
     Каждый фильтр должен содержать поле 'type'
     Есть фильтры для поиска.""")
-def test_search_response_structure(api_client: SearchApi):
-    title = "Сияние"
+def test_search_response_structure(api_client: SearchApi, test_data: dict):
+    title = test_data.get("title_lat")
     result = api_client.search(title)
 
     assert result is not None
@@ -82,8 +82,8 @@ def test_search_response_structure(api_client: SearchApi):
     """Тест проверяет,что результат по запросу не отсутсвует
     и в теле ответа получим словарь. Пустой запрос может вернуть ошибку или
     пустой результат - оба варианта валидны""")
-def test_search_empty_query(api_client: SearchApi):
-    title = ""
+def test_search_empty_query(api_client: SearchApi, test_data: dict):
+    title = test_data.get("title_emp")
     result = api_client.search(title)
 
     assert result is not None
@@ -98,9 +98,9 @@ def test_search_empty_query(api_client: SearchApi):
     API должен вернуть успешный ответ с пустыми результатами.
     Это валидный случай - товар не найден, но запрос успешен.
     """)
-def test_non_correct_search(api_client: SearchApi):
-    title = "xzxtgxdt123!@#"
-    result = api_client.search(title)
+def test_non_correct_search(api_client: SearchApi, test_data: dict):
+    title_non_correct = "xzxtgxdt123!@#"
+    result = api_client.search(title_non_correct)
 
     assert result is not None, "Результат не должен быть None"
     assert isinstance(
@@ -108,4 +108,3 @@ def test_non_correct_search(api_client: SearchApi):
 
     if "error" not in result:
         print(f"Результат поиска несуществующего товара: {result}")
-

@@ -94,9 +94,10 @@ class MainPage:
         (WebDriverWait(
             self.__driver, 15).until(
                 EC.visibility_of_element_located((
-                    By.CSS_SELECTOR, 'a[href="/product/siyanie-2827510"]'))))
+                    By.CSS_SELECTOR, 'a[href="/product/fairy-tales-3024828"]'
+                    ))))
         self.__driver.find_element(
-            By.CSS_SELECTOR, 'a[href="/product/siyanie-2827510"]').click()
+            By.CSS_SELECTOR, 'a[href="/product/fairy-tales-3024828"]').click()
 
     @allure.step("Нажать на кнопку 'Купить'")
     def button_by(self) -> None:

@@ -9,6 +9,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 
 from api.SearchApi import SearchApi
 from configuration.ConfigProvider import ConfigProvider
+from testdata.DataProvider import DataProvider
 
 
 @pytest.fixture
@@ -36,7 +37,11 @@ def browser():
 
 @pytest.fixture
 def api_client() -> SearchApi:
-
+    token = DataProvider().get_token()
     url = ConfigProvider().get("api", "base_url")
+    return SearchApi(url, token)
 
-    return SearchApi(url, 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTkyMjgxOTMsImlhdCI6MTc1OTA2MDE5MywiaXNzIjoiL2FwaS92MS9hdXRoL2Fub255bW91cyIsInN1YiI6ImZiOGY0NDg1NzE4NDY2MTk2MThmYzdlZThlNTYxZGQ1YWQ3ZTAzNmUzYTU2MWIxOTBjZmY0OGNkNTVhZTMxNTgiLCJ0eXBlIjoxMH0.zCzXnBdk_K-KpAYC5dvlJ_rmFxt0I0-OklAHkpXL1GE')
+
+@pytest.fixture
+def test_data():
+    return DataProvider()
