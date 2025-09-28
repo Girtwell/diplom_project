@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from configuration.ConfigProvider import ConfigProvider
 
 
 @allure.epic("Главная страница")
@@ -15,7 +16,8 @@ class MainPage:
         """
         Конструктор инициализирует браузер.
         """
-        self.__url = "https://www.chitai-gorod.ru"
+        url = ConfigProvider().get("ui", "base_url")
+        self.__url = url
         self.__driver = driver
 
     @allure.step("Открыть главную страницу")

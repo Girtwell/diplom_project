@@ -108,3 +108,4 @@ def test_non_correct_search(api_client: SearchApi):
 
     if "error" not in result:
         print(f"Результат поиска несуществующего товара: {result}")
+

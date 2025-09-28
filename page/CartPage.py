@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from configuration.ConfigProvider import ConfigProvider
 
 
 @allure.epic("Корзина")
@@ -15,7 +16,8 @@ class CartPage:
         """
         Конструктор инициализирует браузер.
         """
-        self.__url = "https://www.chitai-gorod.ru"
+        self.url = ConfigProvider().get("ui", "base_url")
+        self.__url = self.url
         self.__driver = driver
 
     @allure.step("Открыть страницу корзины")
@@ -23,7 +25,7 @@ class CartPage:
         """
         Открывает страницу корзины.
         """
-        self.__driver.get(self.__url + "/cart")
+        self.__driver.get(self.__url+"/cart")
 
     @allure.step("Дождаться, что товар отобразился в корзине")
     def item_in_cart(self):
