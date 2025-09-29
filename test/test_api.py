@@ -7,8 +7,8 @@ from api.SearchApi import SearchApi
     """Тест проверяет, что результат по запросу
     не отсутсвует и не возвращает ошибку в ответе.
     В теле ответа получим словарь""")
-def test_search_in_cyrillic(api_client: SearchApi, test_data: dict):
-    title = test_data.get("title_cyr")
+def test_search_in_cyrillic(api_client: SearchApi):
+    title = "Сияние"
     result = api_client.search(title)
 
     assert result is not None, "Результат не должен быть None"
