@@ -28,7 +28,7 @@ class MainPage:
         self.__driver.get(self.__url)
 
     @allure.step("Нажать на поле поиска")
-    def click_search_field(self):
+    def click_search_field(self) -> None:
         """
         Находит поле "Поиск", нажимает на него.
         """

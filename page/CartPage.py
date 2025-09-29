@@ -21,14 +21,14 @@ class CartPage:
         self.__driver = driver
 
     @allure.step("Открыть страницу корзины")
-    def go_cart(self):
+    def go_cart(self) -> None:
         """
         Открывает страницу корзины.
         """
         self.__driver.get(self.__url+"/cart")
 
     @allure.step("Дождаться, что товар отобразился в корзине")
-    def item_in_cart(self):
+    def item_in_cart(self) -> str:
         (WebDriverWait(
             self.__driver, 10).until(
                 EC.visibility_of_element_located((
@@ -42,7 +42,7 @@ class CartPage:
             By.CSS_SELECTOR, 'span.cart-page__clear-cart-title').click()
 
     @allure.step("Дождаться сообщение 'Корзина очищена'")
-    def message_clear_cart(self):
+    def message_clear_cart(self) -> str:
         (WebDriverWait(
             self.__driver, 10).until(
                 EC.visibility_of_element_located((

@@ -5,7 +5,7 @@ Tests: API, UI
 
 ### Шаги:
 1. Склонировать проект `git clone https://github.com/Girtwell/diplom_project.git`
-2. Установить все зависимости
+2. Установить все зависимости `pip install > -r requirements.txt`
 3. Запустить тесты `python -m pytest`
 4. Сгенерировать отчет `allure generate allure-files -o allure-report`
 5. Открыть отчет `allure open allure-report`
@@ -13,9 +13,11 @@ Tests: API, UI
 ### Стек:
 - pytest
 - selenium
+- webdriver manager
 - request 
 - allure
-- config
+- configparser
+- json
 
 ### Структура:
 - ./test - тесты
@@ -25,12 +27,3 @@ Tests: API, UI
     - test_config.ini - настройки для тестов
 - ./testdata - провайдер тестовых данных
     - test_data.json
-### Полезные ссылки:
-- [тут название, описание](тут ссылка)
-
-### Библиолеки:
-- pip install pytest
-- pip install selenium
-- pip install webdriver-manager 
-- pip install allure-pytest
-- pip install requests

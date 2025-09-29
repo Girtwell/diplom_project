@@ -5,6 +5,7 @@ from page.CartPage import CartPage
 
 @allure.title("Найти книгу по корректному запросу через поле поиска")
 @allure.description("Тест проверяет, что выводится результат по запросу")
+@allure.severity("Bloker")
 def test_book_search_pozitive(browser, test_data: dict):
     title = test_data.get("title_lat")
     main_page = MainPage(browser)
@@ -20,6 +21,7 @@ def test_book_search_pozitive(browser, test_data: dict):
 @allure.title("Найти книгу по некорректному запросу через поле поиска")
 @allure.description(
     "Тест проверяет, что при не корректном запросе выводится сообщение")
+@allure.severity("Bloker")
 def test_book_search_negative(browser, test_data: dict):
     title_non_correct = test_data.get("title_non_correct")
     main_page = MainPage(browser)
@@ -35,6 +37,7 @@ def test_book_search_negative(browser, test_data: dict):
         "Заголовок 'Популярные запросы' отображается в выпадающем списке")
 @allure.description(
     "Тест проверяет, что выпадающем списке есть заголовок: Популярные запросы")
+@allure.severity("Bloker")
 def test_dropdown_list(browser):
     main_page = MainPage(browser)
     main_page.go()
@@ -47,6 +50,7 @@ def test_dropdown_list(browser):
 
 @allure.title("Добавление товара в корзину")
 @allure.description("Тест проверяет, что товар добавлен в корзину")
+@allure.severity("Bloker")
 def test_add_book_to_cart(browser, test_data: dict):
     title = test_data.get("title_lat")
     main_page = MainPage(browser)
@@ -67,6 +71,7 @@ def test_add_book_to_cart(browser, test_data: dict):
 @allure.title("Удаление товара из корзины")
 @allure.description(
     "Тест проверяет, что выводится сообщение при очистке корзины")
+@allure.severity("Bloker")
 def test_clear_cart(browser, test_data: dict):
     title = test_data.get("title_lat")
     main_page = MainPage(browser)

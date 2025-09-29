@@ -9,7 +9,7 @@ class SearchApi:
     """
     Этот класс представляет сущность "Хелперы по работе с API".
     """
-    def __init__(self, base_url: str, token: Optional[str] = None):
+    def __init__(self, base_url: str, token: Optional[str] = None) -> None:
         self.base_url = base_url
         self.token = token
 
