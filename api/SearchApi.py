@@ -64,19 +64,23 @@ class SearchApi:
         Returns:
             Dict с результатами поиска или ошибкой
         """
-        encoded_title = quote(title)
+        # Правильное кодирование для кириллицы и других Unicode символов
+        encoded_title = quote(title, encoding='utf-8', safe='')
         path = f"{self.base_url}/search/facet-search?customerCityId=213&phrase={encoded_title}"
 
         headers = self._get_headers()
 
-        with allure.step(f"Отправить GET запрос с '{title}'"):
+        with allure.step(f"Отправить GET запрос с '{title}' (закодировано как: {encoded_title})"):
             resp = requests.get(path, headers=headers, timeout=30)
 
         with allure.step("Получить ответ"):
             if resp.status_code == 200:
+                # Убеждаемся, что кодировка ответа правильная для кириллицы
+                resp.encoding = resp.apparent_encoding or 'utf-8'
                 return resp.json()
             else:
                 print(f"Ошибка запроса: {resp.status_code}")
+                resp.encoding = resp.apparent_encoding or 'utf-8'
                 print(f"Текст ответа: {resp.text}")
                 return {"error": resp.status_code, "message": resp.text}
 

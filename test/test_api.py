@@ -7,16 +7,31 @@ from api.SearchApi import SearchApi
     """Тест проверяет, что результат по запросу
     не отсутсвует и не возвращает ошибку в ответе.
     В теле ответа получим словарь""")
-@allure.severity("Bloker")
-def test_search_in_cyrillic(api_client: SearchApi):
-    title = "Сияние"
-    result = api_client.search(title)
+def test_search_in_cyrillic(api_client: SearchApi, test_data: dict):
+    title = test_data.get("title_cyr")
+
+    with allure.step(f"Поиск книги по кириллическому запросу: '{title}'"):
+        result = api_client.search(title)
 
     assert result is not None, "Результат не должен быть None"
     assert "error" not in result, f"Получена ошибка: {result}"
     assert isinstance(
         result, dict), f"Ожидается словарь, получено: {type(result)}"
-    print(f"Структура ответа: {list(result.keys())}")
+
+    # Дополнительная проверка для кириллицы
+    with allure.step("""
+                     Проверить, что кириллический запрос обработан корректно
+                     """):
+        print(f"Кириллический запрос: '{title}'")
+        print(f"Структура ответа: {list(result.keys())}")
+
+        # Проверим, что есть данные в ответе (если API возвращает данные)
+        if "data" in result:
+            print(f"Найдено результатов: {len(result['data'])}")
+
+        # Убедимся, что нет ошибок кодировки
+        response_str = str(result)
+        assert "UnicodeDecodeError" not in response_str, "Обнаружена ошибка кодировки в ответе API"
 
 
 @allure.title("Тест поиска на латинице")

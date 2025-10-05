@@ -1,6 +1,6 @@
 import json
 
-my_file = open('test_data.json')
+my_file = open('test_data.json', encoding='utf-8')
 global_data = json.load(my_file)
 
 
